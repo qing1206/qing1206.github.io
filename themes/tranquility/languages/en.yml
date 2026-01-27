@@ -1,0 +1,34 @@
+name: English
+
+theme:
+  name: Tranquility
+
+nav:
+  cv: CV
+  blog: Blog
+
+cv:
+  view: Click here to view the online version
+
+search:
+  label: Search
+  placeholder: Search within the Articles
+
+friends:
+  label: Friends
+  apply: Exchange Link
+
+socials:
+  label: Follow Me
+
+concats:
+  label: Concat Me
+
+timeline:
+  name: Timeline
+
+post:
+  next: Next
+  prev: Previous
+  pinned: pinned
+  untitled: Untitled

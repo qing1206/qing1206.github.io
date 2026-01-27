@@ -1,0 +1,76 @@
+{% extends "_partials/layout.njk" %}
+
+{% block link %}
+  <link rel="stylesheet" type="text/css" href='{{ url_for("/css/daily.css") }}' />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery.min.css">
+{% endblock link %}
+
+{% block body %}
+  <div class="daily-container">
+    <div class="daily-header">
+      <h1 class="daily-title">{{ page.title }}</h1>
+      <p class="daily-description">{{ page.description }}</p>
+      
+      <!-- 添加排序按钮 -->
+      <div class="daily-sort-control">
+        <button class="daily-sort-btn" data-sort="desc" title="切换排序">
+          <span class="sort-text">时间排序：</span>
+          <span class="sort-desc">最新在前</span>
+          <span class="sort-asc">最早在前</span>
+          <span class="sort-icon">↑↓</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="daily-content">
+      {% if site.data.daily %}
+        <div class="daily-timeline" data-default-sort="{% if theme.timeline.order %}asc{% else %}desc{% endif %}">
+          {% set currentMonth = "" %}
+          {% for item in site.data.daily %}
+            {# 使用 moment.js 修正时区显示，减去8小时 #}
+            {% set itemDate = moment(item.date).subtract(8, 'hours') %}
+            {% set itemMonth = itemDate.format("YYYY年MM月") %}
+            
+            {% if currentMonth != itemMonth %}
+              {% set currentMonth = itemMonth %}
+              <div class="daily-month-divider">
+                <span>{{ currentMonth }}</span>
+              </div>
+            {% endif %}
+            
+            <div class="daily-item" data-date="{{ itemDate.valueOf() }}">
+              <div class="daily-item__meta">
+                <div class="daily-item__date">{{ itemDate.format("MM月DD日") }}</div>
+                <div class="daily-item__time">{{ itemDate.locale('zh-cn').format("dddd") }} {{ itemDate.format("HH:mm") }}</div>
+              </div>
+              <div class="daily-item__content">
+                {% if item.image %}
+                  <div class="daily-item__image">
+                    <img src="{{ url_for(item.image) }}" alt="{{ item.content | truncate(20) }}" loading="lazy" />
+                  </div>
+                {% endif %}
+                {# <div class="daily-item__text">{{ item.content }}</div> #}
+                <div class="daily-item__text">{{ item.content | nl2br | safe }}</div>
+                {% if item.mood %}
+                  <div class="daily-item__mood">♥ {{ item.mood }}</div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="daily-empty">
+          <p>暂无记录，开始记录你们的第一个瞬间吧！</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  <!-- 添加返回顶部按钮 -->
+  <div class="back-to-top">↑</div>
+{% endblock body %}
+
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
+  <script src="{{ url_for('js/daily.js') }}"></script>
+{% endblock script %}

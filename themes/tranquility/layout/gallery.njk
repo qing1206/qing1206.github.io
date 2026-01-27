@@ -1,0 +1,44 @@
+{% extends "_partials/layout.njk" %}
+
+{% block link %}
+  <link rel="stylesheet" type="text/css" href='{{ url_for("/css/gallery.css") }}' />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery.min.css">
+{% endblock link %}
+
+{% block body %}
+  <div class="gallery-container">
+    <div class="gallery-header">
+      <h1 class="gallery-title">{{ page.title }}</h1>
+      {% if page.description %}
+        <div class="gallery-description">{{ page.description }}</div>
+      {% endif %}
+    </div>
+    
+    <div class="gallery-grid" id="gallery-grid">
+      {% for image in site.data.gallery %}
+        <div class="gallery-item">
+          <div class="gallery-image-wrapper">
+            <img 
+              src="{{ url_for(image.url) }}" 
+              alt="{{ image.caption }}" 
+              loading="lazy" 
+              data-src="{{ url_for(image.url) }}"
+              data-sub-html="<h4>{{ image.caption }}</h4>" 
+            />
+          </div>
+          {% if image.caption %}
+            <div class="gallery-caption">{{ image.caption }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <!-- 添加返回顶部按钮 -->
+  <div class="back-to-top">↑</div>
+{% endblock body %}
+
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
+  <script src="{{ url_for('/js/gallery.js') }}"></script>
+{% endblock script %}

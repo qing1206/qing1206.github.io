@@ -1,0 +1,108 @@
+{% extends "_partials/layout.njk" %}
+
+{% block link %}
+  <link rel="stylesheet" type="text/css" href='{{ url_for("/css/bliss.css") }}' />
+{% endblock link %}
+
+{% block body %}
+  <div class="bliss-container timeline-view">
+    <div class="bliss-header">
+      <h1>Bliss</h1>
+      <p>记录我们的亲密时光，珍藏美好回忆</p>
+    </div>
+    
+    <div class="bliss-controls">
+      <div class="control-group">
+        <h3>查看方式</h3>
+        <div class="view-toggle filter-buttons">
+          <button class="active" data-view="timeline">时间线视图</button>
+          <button data-view="calendar">日历视图</button>
+          <button data-view="grid">网格视图</button>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <h3>按类型筛选</h3>
+        <div class="filter-type filter-buttons">
+          <button class="active" data-type="all">全部</button>
+          <button data-type="penetrative">插入式</button>
+          <button data-type="oral">口式</button>
+          <button data-type="caress">抚摸式</button>
+          <button data-type="other">其他</button>
+        </div>
+      </div>
+      
+      <div class="control-group">
+        <h3>按姿势筛选</h3>
+        <div class="filter-position filter-buttons">
+          <button class="active" data-position="all">全部</button>
+          <button data-position="missionary">传教士</button>
+          <button data-position="cowgirl">女上位</button>
+          <button data-position="doggy">后入式</button>
+          <button data-position="spooning">侧入式</button>
+          <button data-position="other">其他</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="bliss-records">
+      {% set blissData = site.data.bliss %}
+      {% if blissData and blissData.length > 0 %}
+        {% set lastMonth = '' %}
+        
+        {# 对记录按日期排序 #}
+        {% set sortedRecords = blissData | sort('date') | reverse %}
+        
+        {% for record in sortedRecords %}
+          {% set currentMonth = date(record.date, 'YYYY年MM月') %}
+          
+          {# 添加月份分隔符 #}
+          {% if lastMonth != currentMonth %}
+            <div class="date-separator">
+              <span>{{ currentMonth }}</span>
+            </div>
+            {% set lastMonth = currentMonth %}
+          {% endif %}
+          
+          <div class="bliss-record" data-type="{{ record.type }}" data-position="{{ record.position }}">
+            <div class="record-date">{{ date(record.date, 'YYYY年MM月DD日 HH:mm') }}</div>
+            <div class="record-type {{ record.type }}">
+              {% if record.type == 'penetrative' %}
+                插入式
+              {% elif record.type == 'oral' %}
+                口式
+              {% elif record.type == 'caress' %}
+                抚摸式
+              {% else %}
+                其他
+              {% endif %}
+            </div>
+            <div class="record-position">
+              {% if record.position == 'missionary' %}
+                传教士
+              {% elif record.position == 'cowgirl' %}
+                女上位
+              {% elif record.position == 'doggy' %}
+                后入式
+              {% elif record.position == 'spooning' %}
+                侧入式
+              {% else %}
+                其他
+              {% endif %}
+            </div>
+            <div class="record-notes">{{ record.notes }}</div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">
+          <div class="emoji">😊</div>
+          <p>还没有记录，期待你们的第一次...</p>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock body %}
+
+{% block script %}
+  <script src="{{ url_for('js/bliss.js') }}"></script>
+{% endblock script %}
