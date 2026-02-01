@@ -9,3 +9,7 @@ tags: [APP]
 <img src="/source/assets/20-1.jpg" width="20%" />
 
 图片测试！
+
+
+![](/source/assets/20-1.jpg)
+
