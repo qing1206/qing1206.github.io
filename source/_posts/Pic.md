@@ -6,6 +6,6 @@ category: Diaries
 tags: [APP]
 ---
 
-<img src="/source/assets/20-1.jpg" width="80%" />
+<img src="/source/assets/20-1.jpg" width="20%" />
 
 图片测试！
