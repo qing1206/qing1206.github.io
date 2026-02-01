@@ -10,9 +10,3 @@ tags: [APP]
 
 图片测试！
 
-
-![](/source/assets/20-2.jpg)
-
-
-![](/source/assets/20-3.jpg)
-
