@@ -9,3 +9,9 @@ tags: [no]
 This is a test!
 
 > Good!
+
+<img src="/source/assets/21-1.jpg" width="80%" />
+
+---
+
+Very good!
