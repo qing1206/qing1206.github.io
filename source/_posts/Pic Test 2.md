@@ -9,9 +9,6 @@ tags: [APP]
 Test!
 
 
-![](/source/assets/21-1.jpg)
 
 
 ![](/source/assets/21-2.jpg)
-
-
