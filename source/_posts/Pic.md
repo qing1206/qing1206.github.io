@@ -6,7 +6,9 @@ category: Diaries
 tags: [APP]
 ---
 
-<img src="/source/assets/20-1.jpg" width="20%" />
+
+![](/source/assets/20-4.jpg)
+
 
 图片测试！
 
@@ -15,5 +17,3 @@ tags: [APP]
 
 
 ![](/source/assets/20-3.jpg)
-
-
