@@ -1150,6 +1150,7 @@
 
 
 - date: 2026-02-12 19:13:19
-  content: "test"
+  content: |
+   test
   image: "images/daily/2026.02.12_191319.png"
   mood: "🌟"
